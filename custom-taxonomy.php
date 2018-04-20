@@ -34,7 +34,7 @@ get_header(); ?>
 							$terms = get_terms($pagetax);
 							if ( !empty( $terms ) && !is_wp_error( $terms ) ):
 							?>
-							<article class="term-display">
+							<article class="term-display <?php echo $pagetax; ?>">
 							<?php	foreach ($terms as $term ):
 
 							//henter de tre nyeste superheltene, innenfor riktig gruppe.
@@ -54,11 +54,15 @@ get_header(); ?>
 							?>
 							<?php if ( have_posts() ) : ?>
 								<div class="box archive tax">
+
 									<a href="<?php echo get_term_link($term) ?>"><h2><?php echo $term->name ?></h2></a>
 								<?php while ( have_posts() ) : the_post(); ?>
-
-										<?php get_template_part( 'content', get_post_type() ); ?>
-
+												<div class="prev-img">
+												<?php if ( has_post_thumbnail() && ! post_password_required() ) : ?>
+														<?php the_post_thumbnail(); ?>
+													</div>
+											<?php
+												endif; ?>
 								<?php endwhile; ?>
 							</div>
 						<?php endif; ?>

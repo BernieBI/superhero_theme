@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 get_header(); ?>
 
-	<section id="primary" <?php generate_content_class(); ?>>
+	<div id="primary" class="archivepage" <?php generate_content_class(); ?>>
 		<main id="main" <?php generate_main_class(); ?>>
 			<?php
 			/**
@@ -58,7 +58,7 @@ get_header(); ?>
 			do_action( 'generate_after_main_content' );
 			?>
 		</main><!-- #main -->
-	</section><!-- #primary -->
+	</div><!-- #primary -->
 
 	<?php
 	/**
@@ -68,6 +68,5 @@ get_header(); ?>
 	 */
 	 do_action( 'generate_after_primary_content_area' );
 
-	 generate_construct_sidebars();
 
 get_footer();

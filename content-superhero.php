@@ -24,9 +24,7 @@
 		<?php endif; ?>
 
 			<?php if ( has_post_thumbnail() && ! post_password_required() ) : ?>
-			<div class="entry-thumbnail">
 					<?php the_post_thumbnail(); ?>
-			</div>
 		<?php
 			endif; ?>
 
