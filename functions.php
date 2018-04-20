@@ -12,6 +12,14 @@ function generatepress_child_enqueue_styles() {
 }
 add_action( 'wp_enqueue_scripts', 'generatepress_child_enqueue_styles' );
 
+//legger til webfont
+function wpb_add_google_fonts() {
+
+wp_enqueue_style( 'wpb-google-fonts', 'https://fonts.googleapis.com/css?family=Permanent+Marker', false ); 
+}
+
+add_action( 'wp_enqueue_scripts', 'wpb_add_google_fonts' );
+
 
 //Fjerner [taxonomy]: fra tittel på archive sider.
 add_filter('get_the_archive_title', function ($title) {

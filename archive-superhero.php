@@ -31,18 +31,17 @@ get_header(); ?>
 				 * @hooked generate_archive_title - 10
 				 */
 				do_action( 'generate_archive_title' );
-
+				?>
+				<div class="box archive">
+				<?php
 				while ( have_posts() ) : the_post();
 
-					/*
-					 * Include the Post-Format-specific template for the content.
-					 * If you want to override this in a child theme, then include a file
-					 * called content-___.php (where ___ is the Post Format name) and that will be used instead.
-					 */
-					get_template_part( 'content', get_post_format() );
+					get_template_part( 'content', get_post_type() );
 
 				endwhile;
-
+				?>
+			</div>
+				<?php
 				generate_content_nav( 'nav-below' );
 
 			else :
