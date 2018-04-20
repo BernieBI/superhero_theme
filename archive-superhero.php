@@ -1,44 +1,74 @@
 <?php
 /**
- * The template for displaying archive pages.
+ * The template for displaying Archive pages.
  *
- * Learn more: http://codex.wordpress.org/Template_Hierarchy
- *
- * @package Razor Lite
+ * @package GeneratePress
  */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
 
 get_header(); ?>
 
-	<div id="primary" class="content-area">
-		<main id="main" class="site-main" role="main">
-		<?php if ( have_posts() ) : ?>
+	<section id="primary" <?php generate_content_class(); ?>>
+		<main id="main" <?php generate_main_class(); ?>>
+			<?php
+			/**
+			 * generate_before_main_content hook.
+			 *
+			 * @since 0.1
+			 */
+			do_action( 'generate_before_main_content' );
 
-			<?php get_template_part( 'components/archive-header/archive-header' ); ?>
+			if ( have_posts() ) :
 
-			<?php /* Start the Loop */ ?>
-			<?php while ( have_posts() ) : the_post(); ?>
+				/**
+				 * generate_archive_title hook.
+				 *
+				 * @since 0.1
+				 *
+				 * @hooked generate_archive_title - 10
+				 */
+				do_action( 'generate_archive_title' );
 
-				<?php
+				while ( have_posts() ) : the_post();
+
 					/*
 					 * Include the Post-Format-specific template for the content.
 					 * If you want to override this in a child theme, then include a file
 					 * called content-___.php (where ___ is the Post Format name) and that will be used instead.
 					 */
-					get_template_part( 'components/content/content', get_post_format() );
-				?>
+					get_template_part( 'content', get_post_format() );
 
-			<?php endwhile; ?>
+				endwhile;
 
-			<?php the_posts_navigation(); ?>
+				generate_content_nav( 'nav-below' );
 
-		<?php else : ?>
+			else :
 
-			<?php get_template_part( 'components/content-none/content', 'none' ); ?>
+				get_template_part( 'no-results', 'archive' );
 
-		<?php endif; ?>
+			endif;
 
+			/**
+			 * generate_after_main_content hook.
+			 *
+			 * @since 0.1
+			 */
+			do_action( 'generate_after_main_content' );
+			?>
 		</main><!-- #main -->
-	</div><!-- #primary -->
+	</section><!-- #primary -->
 
-<?php get_sidebar(); ?>
-<?php get_footer(); ?>
+	<?php
+	/**
+	 * generate_after_primary_content_area hook.
+	 *
+	 * @since 2.0
+	 */
+	 do_action( 'generate_after_primary_content_area' );
+
+	 generate_construct_sidebars();
+
+get_footer();

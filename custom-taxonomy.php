@@ -51,7 +51,7 @@ get_header(); ?>
 				<a href="<?php echo get_term_link($term) ?>"><h2><?php echo $term->name ?></h2></a>
 					<?php while ( have_posts() ) : the_post(); ?>
 
-							<?php get_template_part( 'components/content/content', get_post_type() ); ?>
+							<?php get_template_part( 'content', get_post_type() ); ?>
 
 					<?php endwhile; ?>
 				</div><!-- .entry-content -->

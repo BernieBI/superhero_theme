@@ -16,39 +16,65 @@ get_header(); ?>
 	<div id="primary" class="content-area">
 		<main id="main" class="site-main" role="main">
 
-<?php //Visning av de tre nyeste sue ?>
 			<?php
-
 			//henter de tre nyeste superheltene.
-			    query_posts(array(
+			    $args = array(
 			        'post_type' => 'superhero',
 			        'showposts' => 3,
 							'orderby'		=> 'publish_date',
 							'order'			=> 'desc'
-			    ) );
+			    );
 			?>
-		<?php if ( have_posts() ) : ?>
+			<?php $posts = get_posts($args);?>
 			<?php /* Start the Loop */ ?>
-			<div id="newest-additions"class="box newest">
+			<div id="newest-superheroes"class="box newest superheroes">
 				<h2>Newest additions</h2>
-			<?php while ( have_posts() ) : the_post(); ?>
+				<?php if ( !empty( $posts ) && !is_wp_error( $posts ) ):  ?>
+				<?php foreach ($posts as $post):;
 
-				<?php
-
-					get_template_part( 'components/content/content', get_post_type() );
+					get_template_part( 'content', get_post_type($post->id) );
 				?>
 
-			<?php endwhile; ?>
+			<?php endforeach; ?>
 		</div>
 
 
-			<?php the_posts_navigation(); ?>
-
 		<?php else : ?>
 
-			<?php get_template_part( 'components/content-none/content', 'none' ); ?>
+			<?php get_template_part( 'no-results' ); ?>
 
 		<?php endif; ?>
+
+		<?php
+		//henter de tre nyeste gruppene.
+				$args = array(
+						'orderby'		=> 'publish_date',
+						'order'			=> 'desc'
+				 );
+		?>
+		<?php $terms = get_terms('group', $args);?>
+		<div id="newest-groups"class="box newest groups">
+		<h2>Newest groups</h2>
+		<?php if ( !empty( $terms ) && !is_wp_error( $terms ) ):  ?>
+			<?php
+			//legger til teller som begrenser til de 3 nyeste.
+			 $i = 0; ?>
+			<?php foreach ($terms as $term): $i++;  ?>
+				<?php if ($i < 4 ): ?>
+					<article class="">
+					<a href="<?php echo get_term_link($term) ?>"><h3><?php  echo  $term->name; ?></h3></a>
+					<?php  //sjekker om bilde er satt til å vises
+					 if (get_field('show_image', $term)): ?>
+						<?php //Henter bilde knyttet til taxonomien, som er lagt til med ACF ?>
+						<img class="tax image" src="<?php the_field('image', $term); ?>" alt="">
+					<?php endif; ?>
+
+				</article>
+				<?php  endif; ?>
+				<?php endforeach; ?>
+	<?php endif; ?>
+	</div>
+
 		</main><!-- #main -->
 	</div><!-- #primary -->
 

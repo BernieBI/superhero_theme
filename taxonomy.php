@@ -17,20 +17,19 @@ get_header(); ?>
 
 				<?php $term = get_queried_object(); ?>
 				<?php //sjekker om bilde er satt til å vises ?>
-				<?php if (get_field('vis_bilde', $term)): ?>
+				<?php if (get_field('show_image', $term)): ?>
 					<?php //Henter bilde knyttet til taxonomien, som er lagt til med ACF ?>
-					<img class="tax image" src="<?php the_field('bilde', $term); ?>" alt="">
-				<?php endif; ?>
-				<?php get_template_part( 'components/archive-header/archive-header' ); ?>
-
-
+					<img class="tax image" src="<?php the_field('image', $term); ?>" alt="">
+				<?php endif;
+				do_action( 'generate_archive_title' );
+ 				?>
 		</div>
 
 			<?php while ( have_posts() ) : the_post(); ?>
 
 				<?php
 
-					get_template_part( 'components/content/content', get_post_format() );
+					get_template_part( 'content', get_post_format() );
 				?>
 
 			<?php endwhile; ?>
@@ -39,7 +38,7 @@ get_header(); ?>
 
 		<?php else : ?>
 
-			<?php get_template_part( 'components/content-none/content', 'none' ); ?>
+			<?php get_template_part( 'no-results' ); ?>
 
 		<?php endif; ?>
 
