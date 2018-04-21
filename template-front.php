@@ -27,6 +27,7 @@ get_header(); ?>
 							<h2>Newest additions</h2>
 							<?php if ( !empty( $posts ) && !is_wp_error( $posts ) ):  ?>
 							<?php foreach ($posts as $post):?>
+
 								<?php get_template_part( 'content', get_post_type($post->id) );?>
 
 						<?php endforeach; ?>
