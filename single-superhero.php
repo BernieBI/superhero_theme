@@ -26,7 +26,7 @@ get_header(); ?>
 
 			<article id="post-<?php the_ID(); ?>" <?php post_class(); ?> <?php generate_article_schema( 'CreativeWork' ); ?>>
 				<div class="inside-article">
-					<header class="entry-header">
+					<header class="entry-header superhero">
 						<?php
 
 						do_action( 'generate_before_entry_title' );
@@ -66,9 +66,21 @@ get_header(); ?>
 			</article><!-- #post-## -->
 			<?php //henter ut stats  ?>
 			<aside class="hero-stats">
+				<?php $post_terms = get_the_terms(get_the_ID(), 'category'); ?>
+
+				<?php if ( !is_wp_error( $post_terms) && $post_terms != false ) : ?>
+						<?php foreach ($post_terms as $term) : ?>
+									<?php if ($term->slug == 'user-submitted'): ?>
+											<span class="tag user-submitted">
+											<?php echo $term->name; ?>
+											</span>
+									<?php endif; ?>
+						<?php endforeach; ?>
+				<?php endif; ?>
 				<?php if ( has_post_thumbnail() && ! post_password_required() ) : ?>
 						<?php the_post_thumbnail(); ?>
 				<?php endif; ?>
+
 				<ul>
 
 
@@ -84,15 +96,19 @@ get_header(); ?>
 		 				if ( $taxonomies ):
 		 					foreach ( $taxonomies as $taxonomy ) :
 			 				$post_terms = get_the_terms(get_the_ID(), $taxonomy->name);
-				 			if ( !is_wp_error( $post_terms) && $post_terms != false ) :
-								?><li class=" <?php echo $taxonomy->labels->name; ?> ">
-									<?php if ($taxonomy->name !== 'category'): ?>
-									<span> <?php echo $taxonomy->labels->name; ?> </span>
-									<?php foreach ($post_terms as $term) :?>
-									<a href="<?php echo get_term_link($term) ?>"><?php  echo  $term->name; ?></a>
-						<?php endforeach; ?>
-					<?php endif; ?>
-							</li>
+				 			if ( !is_wp_error( $post_terms) && $post_terms != false ) : ?>
+
+								<?php if ($taxonomy->name !== 'category'): ?>
+								 <li class=" <?php echo $taxonomy->labels->name; ?> ">
+
+												<span> <?php echo $taxonomy->labels->name; ?> </span>
+
+											<?php foreach ($post_terms as $term) :?>
+													<a href="<?php echo get_term_link($term) ?>"><?php  echo  $term->name; ?></a>
+										<?php endforeach; ?>
+
+									</li>
+							<?php endif; ?>
 					<?php endif;
 					endforeach;
 				endif; ?>

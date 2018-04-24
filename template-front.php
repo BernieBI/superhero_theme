@@ -12,6 +12,8 @@ get_header(); ?>
 
 	<section id="primary" <?php generate_content_class(); ?>>
 		<main id="main" <?php generate_main_class(); ?>>
+
+
 					<?php
 						//henter de tre nyeste superheltene.
 						    $args = array(
@@ -57,15 +59,13 @@ get_header(); ?>
 						<?php foreach ($terms as $term): $i++;  ?>
 							<?php if ($i < 4 ): ?>
 							<div class="group-wrapper wrapper">
-								<article class="group">
-								<a href="<?php echo get_term_link($term) ?>"><h3><?php  echo  $term->name; ?></h3></a>
+								<a href="<?php echo get_term_link($term) ?>"><h3><?php  echo  $term->name; ?></h3>
 								<?php  //sjekker om bilde er satt til å vises
 								 if (get_field('show_image', $term)): ?>
 									<?php //Henter bilde knyttet til taxonomien, som er lagt til med ACF ?>
 									<img class="tax image" src="<?php the_field('image', $term); ?>" alt="">
 								<?php endif; ?>
-
-							</article>
+							</a>
 						</div>
 							<?php  endif; ?>
 							<?php endforeach; ?>

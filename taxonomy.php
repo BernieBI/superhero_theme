@@ -21,7 +21,7 @@ get_header(); ?>
 				<?php //sjekker om bilde er satt til å vises ?>
 				<?php if (get_field('show_image', $term)): ?>
 				<?php //Henter bilde knyttet til taxonomien, som er lagt til med ACF ?>
-				<img class="tax image" src="<?php the_field('image', $term); ?>" alt="">
+				<img class="tax image" src="<?php the_field('image', $term); ?>" alt="<?php echo $term->name; ?>" height="300" width="auto">
 				<?php endif;
  				?>
 		</div>
@@ -54,6 +54,5 @@ get_header(); ?>
 	*/
 	do_action( 'generate_after_primary_content_area' );
 
-	generate_construct_sidebars();
 
 	get_footer();
