@@ -21,11 +21,14 @@ get_header(); ?>
 				<?php //sjekker om bilde er satt til å vises ?>
 				<?php if (get_field('show_image', $term)): ?>
 				<?php //Henter bilde knyttet til taxonomien, som er lagt til med ACF ?>
-				<img class="tax image" src="<?php the_field('image', $term); ?>" alt="<?php echo $term->name; ?>" height="300" width="auto">
+				<div class="tax image">
+				<img src="<?php the_field('image', $term); ?>" alt="<?php echo $term->name; ?>" height="300" width="auto">
+			</div>
 				<?php endif;
  				?>
 		</div>
 		<div class="box archive">
+			<h2>Assosiated Heroes</h2>
 			<?php while ( have_posts() ) : the_post(); ?>
 
 				<?php

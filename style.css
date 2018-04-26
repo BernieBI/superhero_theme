@@ -20,6 +20,7 @@ div.box {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: baseline;
   padding: 0em;
   margin: 0.5em;
   background: white;
@@ -103,10 +104,16 @@ div.box h2 {
   z-index: 1;
 }
 
+div.box.newest.superheroes .wrapper {
+  width: 30%;
+}
+
 div.box .wrapper {
   min-width: 10em;
   margin: 0.5em;
-  overflow: hidden;
+}
+
+div.box .wrapper article {
   box-shadow: 0px 2px 4px rgba(0, 0, 0, .5);
 }
 
@@ -120,6 +127,7 @@ article.superhero {
 
 article.superhero img {
   z-index: 1;
+  width: 100%;
   height: auto;
   display: block;
 }
@@ -375,11 +383,16 @@ li.equipment>a>h3 {
 
 .tax.header .tax.image {
   padding: 1em 2em;
+  max-width: 500px;
+  margin: 0 auto;
 }
+
+.tax.header .page-header {}
 
 .tax.header {
   position: relative;
   display: flex;
+  flex-direction: column-reverse;
   justify-content: space-between;
   background: white;
   transition: 0.2s;

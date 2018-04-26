@@ -84,13 +84,11 @@ get_header(); ?>
 				<ul>
 
 
-				<?php if (get_field('full_name')): ?>
 					<li class ="head element">
 						<span>Full Name:
 							<?php the_field('full_name') ?>
 						</span>
 					</li>
-				<?php endif; ?>
 				 <?php
 				 	$taxonomies = get_taxonomies($args, 'objects');
 		 				if ( $taxonomies ):

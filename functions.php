@@ -42,6 +42,8 @@ add_filter( 'pre_get_posts', 'superhero_get_posts' );
 
 
 
+
+
 //legger til taxonomy i søkefunksjon
 //Hentet fra: https://wordpress.stackexchange.com/questions/2623/include-custom-taxonomy-term-in-search
 function atom_search_where($where){
